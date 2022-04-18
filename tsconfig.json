@@ -1,34 +1,34 @@
 {
-  "compilerOptions": {
-    /* file structure */
-    "rootDir": ".",
-    "outDir": "build",
-    "baseUrl": ".",
+	"compilerOptions": {
+		/* file structure */
+		"rootDir": ".",
+		"outDir": "build",
+		"baseUrl": ".",
 
-    /* modules */
-    "target": "es2021",
-    "module": "es2022",
-    "moduleResolution": "node",
+		/* modules */
+		"target": "es2022",
+		"module": "commonjs",
+		"moduleResolution": "node",
 
-    /* rules */
-    "strict": true,
-    "strictNullChecks": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": false,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
-    "allowUnreachableCode": false,
-    "allowUnusedLabels": false,
-    "declaration": false,
-    "noEmitOnError": true,
-    "pretty": true,
-    "sourceMap": false,
-    "importsNotUsedAsValues": "remove",
-    "forceConsistentCasingInFileNames": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"]
-  }
+		/* rules */
+		"strict": true,
+		"strictNullChecks": true,
+		"noImplicitAny": true,
+		"noImplicitReturns": false,
+		"noFallthroughCasesInSwitch": true,
+		"noUncheckedIndexedAccess": true,
+		"noImplicitOverride": true,
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
+		"declaration": false,
+		"noEmitOnError": true,
+		"pretty": true,
+		"sourceMap": false,
+		"importsNotUsedAsValues": "remove",
+		"forceConsistentCasingInFileNames": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"resolveJsonModule": true,
+		"lib": ["DOM", "DOM.Iterable", "ESNext"]
+	}
 }
