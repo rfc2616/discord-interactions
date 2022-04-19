@@ -1,5 +1,7 @@
 import fetch, { Response } from 'node-fetch';
 
+type headers = Record<string, string>;
+
 export class API {
 	private queue: Promise<Response>[];
 	private remaining: number;
@@ -32,9 +34,9 @@ export class API {
 	private async request(
 		method: string,
 		path: string,
-		headers: Record<string, string> = {},
-		body: string = ''
-	): Promise<Response> {
+		headers: headers = {},
+		body?: any
+	): Promise<any> {
 		let resolve = (_: any) => {};
 		this.queue.push(new Promise(r => (resolve = r)));
 		await Promise.all([...this.queue.slice(0, -1)]);
@@ -52,7 +54,7 @@ export class API {
 				'Authorization': `Bot ${this.token}`,
 				...headers,
 			},
-			body,
+			body: JSON.stringify(body),
 		});
 		this.logger?.(new Date().valueOf() - startTime, response);
 
@@ -69,6 +71,6 @@ export class API {
 			return this.request(method, path, headers, body);
 		}
 
-		return response;
+		return response.json();
 	}
 }
