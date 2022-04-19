@@ -5,6 +5,7 @@ export class API {
 	private remaining: number;
 	private resetAt: number;
 	private token: string;
+	private logger;
 
 	get = this.request.bind(this, 'GET');
 	patch = this.request.bind(this, 'PATCH');
@@ -14,13 +15,18 @@ export class API {
 
 	/**
 	 * Allows accessing the Discord API with its ratelimit.
-	 * @param token Your bot's secret token
+	 * @param token your bot's secret token
+	 * @param [logger] a function that is called after each request
 	 */
-	constructor(token: string) {
+	constructor(
+		token: string,
+		logger?: (duration: number, response: Response) => Promise<void> | void
+	) {
 		this.queue = [];
 		this.remaining = 1;
 		this.resetAt = new Date().valueOf();
 		this.token = token;
+		this.logger = logger;
 	}
 
 	private async request(
@@ -38,6 +44,7 @@ export class API {
 			await new Promise(r => setTimeout(r, diff));
 		}
 
+		const startTime = new Date().valueOf();
 		const response = await fetch('https://discord.com/api/v10' + path, {
 			method,
 			headers: {
@@ -47,6 +54,7 @@ export class API {
 			},
 			body,
 		});
+		this.logger?.(new Date().valueOf() - startTime, response);
 
 		this.remaining = parseInt(
 			response.headers.get('X-Ratelimit-Remaining') || '1'
@@ -58,7 +66,7 @@ export class API {
 		this.queue.splice(0, 1);
 
 		if (response.status === 429) {
-			return await this.request(method, path, headers, body);
+			return this.request(method, path, headers, body);
 		}
 
 		return response;
