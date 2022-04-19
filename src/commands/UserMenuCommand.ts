@@ -8,10 +8,10 @@ export class UserMenuCommand extends Command {
 	 * @param name the command name
 	 * @param options options for this command
 	 * @param onInteraction a method that is called when a user interacts with this command
-	 * @param {localizations} translations for the command name
-	 * @link https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
+	 * @param [localizations] translations for the command name
+	 * @link https://discord.com/developers/docs/interactions/application-commands#user-commands
 	 */
-	public constructor(
+	constructor(
 		name: string,
 		options: CommandOption[],
 		onInteraction: (interaction: Interaction) => Promise<void> | void,

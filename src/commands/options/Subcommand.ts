@@ -1,17 +1,18 @@
 import { Interaction } from 'src/Interaction';
-import { Command, CommandType } from './Command';
-import { CommandGroup } from './options/CommandGroup';
-import { CommandOption } from './options/CommandOption';
-import { Subcommand } from './options/Subcommand';
+import { ChatInputCommand } from '../ChatInputCommand';
+import { CommandOption, CommandOptionType } from './CommandOption';
 
-export class ChatInputCommand extends Command {
+export class Subcommand
+	extends CommandOption
+	implements Omit<ChatInputCommand, 'type'>
+{
 	/**
-	 * A Chat Input Command.
-	 * @param name the command name
+	 * A subcommand for a {@link CommandGroup}.
+	 * @param name the command's name
 	 * @param description the command description
-	 * @param options options for this command
+	 * @param options arguments for this command
 	 * @param onInteraction a method that is called when a user interacts with this command
-	 * @param [localizations] translations for the command name and description
+	 * @param localizations translations for the name and description
 	 * @link https://discord.com/developers/docs/interactions/application-commands#slash-commands
 	 */
 	constructor(
@@ -25,12 +26,15 @@ export class ChatInputCommand extends Command {
 		}
 	) {
 		super(
-			CommandType.CHAT_INPUT,
+			CommandOptionType.SUB_COMMAND,
 			name,
 			description,
 			options,
-			onInteraction,
+			false,
 			localizations
 		);
+		this.handleInteraction = onInteraction;
 	}
+
+	handleInteraction;
 }
